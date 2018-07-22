@@ -1,0 +1,24 @@
+--- src/plugins/gstreamer/camerabin/camerabinsession.cpp        2018-04-25 00:21:50.000000000 -0400
++++ src/plugins/gstreamer/camerabin/camerabinsession.cpp.new    2018-06-04 09:26:55.853527569 -0400
+@@ -556,6 +556,22 @@
+             gst_object_unref(GST_OBJECT(camSrc));
+     }
+ 
++
++    const QByteArray envInterlace = qgetenv("QT_GSTREAMER_CAMERABIN_VIDEO_INTERLACE");
++    if (envInterlace.length() > 0) {
++        GstElement *interlace = gst_element_factory_make ("interlace", NULL);
++        if (interlace == NULL)
++            g_error ("Could not create 'interlace' element");
++
++
++        g_object_set(G_OBJECT(m_camerabin), "viewfinder-filter", interlace, NULL);
++
++        #if CAMERABIN_DEBUG
++            qDebug() << "set camera filter" << interlace;
++        #endif
++        gst_object_unref (interlace);
++    }
++
+     return m_cameraSrc;
+ }
