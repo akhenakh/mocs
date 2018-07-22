@@ -54,6 +54,8 @@ It reads GPS data from [gpsd](https://github.com/akhenakh/gpsd)
 [OpenMapTiles project is great](https://openmaptiles.org) to generate vector data in MBTILES format, you can serve them with[mbtileserver](https://github.com/consbio/mbtileserver).  
 Qt Map QML can display them using the `mapboxgl` driver.
 
+Glyphs can be generated with [this repo](https://github.com/orangemug/font-glyphs).
+
 ## Routing
 
 Hopefully the provided Qt `osm` plugins knows how to route using the OSRM API.  
@@ -86,9 +88,7 @@ Restart=always
 RestartSec=5
 
 [Install]
-User=akh
 WantedBy=multi-user.target
-Alias=mocs.service
 ```
 `systemctl --user enable mocs.service`
 
