@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>PageInfo.qml</file>
+        <file>PageInfoForm.ui.qml</file>
+        <file>PageData.qml</file>
+        <file>PageDataForm.ui.qml</file>
+        <file>CarMap.qml</file>
+        <file>IconAwesome.qml</file>
+        <file>fontawesome.js</file>
+        <file>PageCam.qml</file>
+        <file>fonts/Roboto-Light.ttf</file>
+        <file>fonts/fontawesome-webfont.ttf</file>
+    </qresource>
+</RCC>

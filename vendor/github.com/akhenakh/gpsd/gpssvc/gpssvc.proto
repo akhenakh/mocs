@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+service GPSSVC {
+    rpc LivePosition(google.protobuf.Empty) returns (stream Position);
+}
+
+message Position {
+    double latitude = 1;
+    double longitude = 2;
+    // true track when available
+    double heading = 3;
+    // speed in km/h, ground speed when available
+    double speed = 4;
+    double horizontal_precision = 5;
+    
+    // matched data
+    bool matched = 6;
+    double matched_latitude = 7;
+    double matched_longitude = 8;
+    double matched_heading = 9;
+    double matched_distance = 10;
+    string road_name = 11;
+}
