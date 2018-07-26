@@ -57,7 +57,7 @@ Rectangle {
         gesture.acceptedGestures: MapGestureArea.PanGesture | MapGestureArea.FlickGesture | MapGestureArea.PinchGesture | MapGestureArea.RotationGesture | MapGestureArea.TiltGesture
         gesture.flickDeceleration: 3000
         gesture.enabled: true
-        tilt: 45.0
+        //tilt: 45.0
         copyrightsVisible: false
         RouteQuery {
             id: aQuery
@@ -131,7 +131,7 @@ Rectangle {
     
     IconAwesome {
         id: iconSun
-        x: 1024 - 70
+        x: parent.width - 70
         y: 30
         width: 40
         height: 40
@@ -141,14 +141,14 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: { 
-                if (carMap.activeMapType == carMap.supportedMapTypes[0]) { carMap.activeMapType = carMap.supportedMapTypes[1] } else { carMap.activeMapType = carMap.supportedMapTypes[0]}
+                if (carMap.activeMapType === carMap.supportedMapTypes[0]) { carMap.activeMapType = carMap.supportedMapTypes[1] } else { carMap.activeMapType = carMap.supportedMapTypes[0]}
             }
         }
     }
 
     IconAwesome {
         id: iconSearch
-        x: 1024 - 70
+        x: parent.width - 70
         y: 120
         width: 40
         height: 40
@@ -158,7 +158,7 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: { 
-                if (carMap.activeMapType == carMap.supportedMapTypes[0]) { carMap.activeMapType = carMap.supportedMapTypes[1] } else { carMap.activeMapType = carMap.supportedMapTypes[0]}
+                if (carMap.activeMapType === carMap.supportedMapTypes[0]) { carMap.activeMapType = carMap.supportedMapTypes[1] } else { carMap.activeMapType = carMap.supportedMapTypes[0]}
             }
         }
     }
@@ -176,7 +176,7 @@ Rectangle {
             
             if (matched) {
                 console.log("matched", mlat, mlng, mheading)
-                var coord = QtPositioning.coordinate(mlat, mlng).atDistanceAndAzimuth(
+                coord = QtPositioning.coordinate(mlat, mlng).atDistanceAndAzimuth(
                 screenCenter.distanceTo(bottomCenter), mheading);
                  // do not update the heading if low speed
                 if (speed > 1) {

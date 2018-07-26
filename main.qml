@@ -7,8 +7,8 @@ import QtPositioning 5.11
 ApplicationWindow {
     id: window
     visible: true
-    width: 1024 
-    height: 600 
+    width: 800
+    height: 480
     title: qsTr("Tabs")
 
     Material.theme: Material.Dark

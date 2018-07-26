@@ -29,16 +29,17 @@ Item {
         }
 
         TextInput {
+            x: 866
             text: "Test Input"
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 340
-            anchors.left: parent.left
-            anchors.leftMargin: 20
+            anchors.top: parent.top
+            anchors.topMargin: 20
+            anchors.right: parent.right
+            anchors.rightMargin: 20
             font.pointSize: 30
             font.family: robotoLight.name
+            font.weight: Font.Light // this is necessary or else it'll look like Roboto-Bold
             cursorVisible: false
             color: "#ffffff"
-            y: 223
             width: 150
             height: 30
         }
@@ -84,7 +85,12 @@ Item {
             anchors.topMargin: 40
             anchors.left: parent.left
             anchors.leftMargin: 20
-            font.pixelSize: 30
+            font.pointSize: 30
         }
     }
 }
+
+/*##^## Designer {
+    D{i:3;anchors_y:118}
+}
+ ##^##*/
