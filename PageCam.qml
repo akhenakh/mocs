@@ -3,14 +3,12 @@ import QtQuick.Controls 2.3
 import QtMultimedia 5.4
 
 Item {
-    width: 1024
-    height: 600
 
     Rectangle {
         id: camRect
         color: "#000054"
-        width: 720
-        height: 576
+        width: 650
+        height: 430
         anchors.left: parent.left
         anchors.leftMargin: 0
         anchors.top: parent.top
@@ -27,6 +25,7 @@ Item {
         VideoOutput {
             source: camera
             anchors.fill: parent
+            fillMode: PreserveAspectFit
         }
     }
 
