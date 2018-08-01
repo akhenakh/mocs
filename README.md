@@ -51,10 +51,9 @@ at the end of `GstElement *CameraBinSession::buildCameraSource()`
 It reads GPS data from [gpsd](https://github.com/akhenakh/gpsd)
 
 ## Offline maps
-[OpenMapTiles project is great](https://openmaptiles.org) to generate vector data in MBTILES format, you can serve them with[mbtileserver](https://github.com/consbio/mbtileserver).  
+[OpenMapTiles project is great](https://openmaptiles.org) to generate vector data in MBTILES format, serve them with[mbmatch](https://github.com/akhenakh/mbmatch).  
 Qt Map QML can display them using the `mapboxgl` driver.
 
-Glyphs can be generated with [this repo](https://github.com/orangemug/font-glyphs).
 
 ## Routing
 
@@ -92,7 +91,6 @@ WantedBy=multi-user.target
 ```
 `systemctl --user enable mocs.service`
 
-Enable mbtileserver  
 Enable osrm  
 
 ## License
