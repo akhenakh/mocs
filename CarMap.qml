@@ -21,7 +21,7 @@ Rectangle {
         }
         PluginParameter{
             name: "mapboxgl.mapping.additional_style_urls"
-            value: "http://localhost:3000/solarized-dark.style,http://localhost:3000/osm-liberty-gl.style"
+            value: "http://localhost:7000/solarized-dark.style,http://localhost:7000/osm-liberty-gl.style"
         }
     }
 
