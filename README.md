@@ -65,6 +65,8 @@ osrm-contract quebec-latest.osrm
 osrm-routed quebec-latest.osrm
 ```
 
+To set your home base use `DEFAULTLAT` & `DEFAULTLNG` environment variable.
+
 ## Raspberry
 I'm using an Rpi3 (old model).
 
@@ -80,6 +82,8 @@ Description=Mocs
 
 [Service]
 ExecStart=/home/youruser/mocs
+Environment=DEFAULTLAT=46.45323
+Environment=DEFAULTLNG=-71.93323
 Environment=QT_QPA_PLATFORM=eglfs:/dev/fb0
 Environment=QT_GSTREAMER_CAMERABIN_VIDEO_INTERLACE=yes
 Environment=QT_QPA_EGLFS_HIDECURSOR=yes

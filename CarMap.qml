@@ -1,10 +1,12 @@
 import QtQuick 2.4
 import QtLocation 5.11
 import QtPositioning 5.11
+import "fontawesome.js" as FA
 
 Rectangle {
     id: rectMap
     color: "#000000"
+    property variant currentPosition
 
     Plugin {
         id: mapPlugin
@@ -37,16 +39,17 @@ Rectangle {
     }
 
     Waypoint {
-        id: waypointStart
-        coordinate: QtPositioning.coordinate(46.7852, -71.3256)
-        bearing: 3
+        id: waypointHome
+        coordinate: QtPositioning.coordinate(QmlBridge.defaultLat, QmlBridge.defaultLng)
     }
 
-    Waypoint {
-        id: waypointEnd
-        coordinate: QtPositioning.coordinate(46.798556, -71.233922)
-        bearing: 45
+    Timer {
+        repeat: false
+        running: true
+        interval: 4000
+        onTriggered: { carMap.copyrightsVisible = false; }
     }
+
 
     Map {
         id: carMap
@@ -57,8 +60,9 @@ Rectangle {
         gesture.acceptedGestures: MapGestureArea.PanGesture | MapGestureArea.FlickGesture | MapGestureArea.PinchGesture | MapGestureArea.RotationGesture | MapGestureArea.TiltGesture
         gesture.flickDeceleration: 3000
         gesture.enabled: true
-        //tilt: 45.0
-        copyrightsVisible: false
+        tilt: 10.0
+        copyrightsVisible: true
+
         RouteQuery {
             id: aQuery
         }
@@ -66,11 +70,12 @@ Rectangle {
         RouteModel {
             id : routeModel
             query: aQuery
-            autoUpdate: true
+            autoUpdate: false
             plugin: routePlugin
         }
 
         MapItemView {
+            id: mapRouteView
             model: routeModel
             delegate: routeDelegate
         }
@@ -86,6 +91,7 @@ Rectangle {
                 opacity: 1.0
             }
         }
+
         ListView {
             id: listview
             anchors.fill: parent
@@ -121,14 +127,14 @@ Rectangle {
     IconAwesome {
         id: iconCar
         x: carMap.width/2 - 10
-        y: carMap.height - 80 
+        y: carMap.height - 80
         width: 40
         height: 40
-        color: "#dc322f"
+        color: "#d33682"
         pointSize: 40
         icon: icons.fa_arrow_up;
     }
-    
+
     IconAwesome {
         id: iconSun
         x: parent.width - 70
@@ -140,7 +146,7 @@ Rectangle {
         icon: icons.fa_adjust;
         MouseArea {
             anchors.fill: parent
-            onClicked: { 
+            onClicked: {
                 if (carMap.activeMapType === carMap.supportedMapTypes[0]) { carMap.activeMapType = carMap.supportedMapTypes[1] } else { carMap.activeMapType = carMap.supportedMapTypes[0]}
             }
         }
@@ -157,35 +163,72 @@ Rectangle {
         icon: icons.fa_search;
         MouseArea {
             anchors.fill: parent
-            onClicked: { 
-                if (carMap.activeMapType === carMap.supportedMapTypes[0]) { carMap.activeMapType = carMap.supportedMapTypes[1] } else { carMap.activeMapType = carMap.supportedMapTypes[0]}
+            onClicked: {
+                //TODO: search
+            }
+        }
+    }
+
+    IconAwesome {
+        id: iconHome
+        x: parent.width - 70
+        y: parent.height - 70
+        width: 40
+        height: 40
+        color: "#6c71c4"
+        pointSize: 30
+        icon: icons.fa_home;
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if (routeModel.status != RouteModel.Null) {
+
+                    // crash in Qt 5.11
+                    // routeModel.reset();
+                    aQuery.clearWaypoints();
+                    routeModel.cancel();
+                    mapRouteView.model = null;
+
+                    console.log("canceling route", routeModel.status);
+
+                    iconHome.icon = FA.Icons.fa_home;
+                } else {
+
+                    iconHome.icon = FA.Icons.fa_stop_circle;
+                    aQuery.addWaypoint(currentPosition);
+                    aQuery.addWaypoint(waypointHome.coordinate);
+                    aQuery.travelModes = RouteQuery.CarTravel;
+                    mapRouteView.model = routeModel;
+                    routeModel.update();
+                    console.log("started routing from", currentPosition, "to",  waypointHome.coordinate);
+                }
             }
         }
     }
 
     Connections {
         target: QmlBridge
-        onPositionUpdate: 
-        {   
-            // offset the 
+        onPositionUpdate:
+        {
+            // offset the car icon
             var screenCenter = carMap.toCoordinate(Qt.point(carMap.width/2, carMap.height/2));
             var bottomCenter = carMap.toCoordinate(Qt.point(carMap.width/2, carMap.height - 40));
-            
+
             var coord = QtPositioning.coordinate(lat, lng).atDistanceAndAzimuth(
                 screenCenter.distanceTo(bottomCenter), heading);
-            
+
+            currentPosition = QtPositioning.coordinate(lat, lng);
             if (matched) {
+                currentPosition = QtPositioning.coordinate(mlat, mlng);
                 console.log("matched", mlat, mlng, mheading)
                 coord = QtPositioning.coordinate(mlat, mlng).atDistanceAndAzimuth(
                 screenCenter.distanceTo(bottomCenter), mheading);
-                 // do not update the heading if low speed
-                if (speed > 1) {
-                    carMap.bearing = mheading;
-                }
+                carMap.bearing = mheading;
+                return;
             }
             carMap.center = coord;
             // do not update the heading if low speed
-            if (speed > 1) {
+            if (speed > 2) {
                 carMap.bearing = heading;
             }
         }

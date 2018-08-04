@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"io"
 	"log"
 	"os"
@@ -10,6 +9,7 @@ import (
 
 	"github.com/akhenakh/gpsd/gpssvc"
 	google_protobuf "github.com/golang/protobuf/ptypes/empty"
+	"github.com/namsral/flag"
 	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/gui"
 	"github.com/therecipe/qt/qml"
@@ -19,8 +19,8 @@ import (
 
 var (
 	gpsAddr = flag.String("gpsAddr", "localhost:9402", "gRPC addr for GPS service")
-	lat     = flag.Float64("lat", 46.799059, "latitude")
-	lng     = flag.Float64("lng", -71.234126, "longitude")
+	lat     = flag.Float64("defaultLat", 46.799059, "latitude for home base")
+	lng     = flag.Float64("defaultLng", -71.234126, "longitude for home base")
 	debug   = flag.Bool("debug", false, "enable debug")
 )
 

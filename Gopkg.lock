@@ -10,7 +10,7 @@
   revision = "89e6f055d3ca75684bbda24b7f210e1d8cb222af"
 
 [[projects]]
-  digest = "1:1ebc8dddd36c5744ff70e49ae3e2db521c04aa3d2051629e2e63ed95329a9a53"
+  digest = "1:0a6478c37f24385424d457d8f2d921dc9ff84156e021fe86c5cabe263db64930"
   name = "github.com/golang/protobuf"
   packages = [
     "proto",
@@ -26,7 +26,31 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:82f1b0582a936c1e93d076223aa44146cbfc9af4d8e8e8ba0cedd25d2f40398d"
+  digest = "1:f14d1b50e0075fb00177f12a96dd7addf93d1e2883c25befd17285b779549795"
+  name = "github.com/gopherjs/gopherjs"
+  packages = ["js"]
+  pruneopts = "UT"
+  revision = "0892b62f0d9fb5857760c3cfca837207185117ee"
+
+[[projects]]
+  digest = "1:6221a3a452964b1ff30efdc22209b124d54d04373e5993264d3fa9b13da0659d"
+  name = "github.com/namsral/flag"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "71ceffbeb0ba60fccc853971bb3ed4d7d90bfd04"
+  version = "v1.7.4-pre"
+
+[[projects]]
+  branch = "master"
+  digest = "1:054542143df9e450c5e449bc3b76f98a93ebb93c3e75835cf15312c77fa9f3d5"
+  name = "github.com/therecipe/qt"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "ad4b26dcd5d05cbd3e39c874b80b79213244f845"
+
+[[projects]]
+  branch = "master"
+  digest = "1:35dc91eff9861545fea1fd5e723a72202aaeb668f7cda7c415a226ea9e00c35d"
   name = "golang.org/x/net"
   packages = [
     "context",
@@ -41,7 +65,7 @@
   revision = "a680a1efc54dd51c040b3b5ce4939ea3cf2ea0d1"
 
 [[projects]]
-  digest = "1:7509ba4347d1f8de6ae9be8818b0cd1abc3deeffe28aeaf4be6d4b6b5178d9ca"
+  digest = "1:a2ab62866c75542dd18d2b069fec854577a20211d7c0ea6ae746072a1dccdd18"
   name = "golang.org/x/text"
   packages = [
     "collate",
@@ -72,7 +96,7 @@
   revision = "fedd2861243fd1a8152376292b921b394c7bef7e"
 
 [[projects]]
-  digest = "1:4515e3030c440845b046354fd5d57671238428b820deebce2e9dabb5cd3c51ac"
+  digest = "1:2dab32a43451e320e49608ff4542fdfc653c95dcc35d0065ec9c6c3dd540ed74"
   name = "google.golang.org/grpc"
   packages = [
     ".",
@@ -111,6 +135,8 @@
   input-imports = [
     "github.com/akhenakh/gpsd/gpssvc",
     "github.com/golang/protobuf/ptypes/empty",
+    "github.com/namsral/flag",
+    "github.com/therecipe/qt",
     "google.golang.org/grpc",
   ]
   solver-name = "gps-cdcl"
