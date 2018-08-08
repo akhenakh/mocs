@@ -23,14 +23,14 @@ Rectangle {
         }
         PluginParameter{
             name: "mapboxgl.mapping.additional_style_urls"
-            value: "http://localhost:7000/solarized-dark.style,http://localhost:7000/osm-liberty-gl.style"
+            value: "http://localhost:7000/osm-liberty-gl.style,http://localhost:7000/solarized-dark.style"
         }
     }
 
     Plugin {
         id: routePlugin
         name: "osm"
-        locales: ["fr_CA","en_CA"]
+        locales: ["fr_CA","en_CA", "en_US"]
         PluginParameter{
             name: "osm.routing.host"
             value: "http://localhost:5000/route/v1/driving/"
@@ -212,25 +212,25 @@ Rectangle {
         {
             // offset the car icon
             var screenCenter = carMap.toCoordinate(Qt.point(carMap.width/2, carMap.height/2));
-            var bottomCenter = carMap.toCoordinate(Qt.point(carMap.width/2, carMap.height - 40));
+            var bottomCenter = carMap.toCoordinate(Qt.point(carMap.width/2, carMap.height - 60));
 
             var coord = QtPositioning.coordinate(lat, lng).atDistanceAndAzimuth(
                 screenCenter.distanceTo(bottomCenter), heading);
 
             currentPosition = QtPositioning.coordinate(lat, lng);
-            if (matched) {
-                currentPosition = QtPositioning.coordinate(mlat, mlng);
-                console.log("matched", mlat, mlng, mheading)
-                coord = QtPositioning.coordinate(mlat, mlng).atDistanceAndAzimuth(
-                screenCenter.distanceTo(bottomCenter), mheading);
-                carMap.bearing = mheading;
-                return;
-            }
-            carMap.center = coord;
-            // do not update the heading if low speed
+             // do not update the heading if low speed
             if (speed > 2) {
                 carMap.bearing = heading;
             }
+            if (matched) {
+                currentPosition = QtPositioning.coordinate(mlat, mlng);
+                console.log("matched", mlat, mlng, mheading, roadName)
+                coord = QtPositioning.coordinate(mlat, mlng).atDistanceAndAzimuth(
+                    screenCenter.distanceTo(bottomCenter), mheading);
+                // TODO: no fixed heading so far
+                carMap.bearing = mheading;
+            }
+            carMap.center = coord;
         }
     }
 }

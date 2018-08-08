@@ -4,6 +4,7 @@ Item {
     id: item2
     width: 1024
     height: 600
+    property alias tRoadName: tRoadName
     property alias tSpeed: tSpeed
     property alias tClock: tClock
     property alias exitButtonMouseArea: exitButtonMouseArea
@@ -82,6 +83,20 @@ Item {
             font.family: robotoLight.name
             font.weight: Font.Light
             anchors.top: tClock.bottom
+            anchors.topMargin: 40
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            font.pointSize: 30
+        }
+
+        Text {
+            id: tRoadName
+            width: 200
+            height: 30
+            color: "#ffffff"
+            font.family: robotoLight.name
+            font.weight: Font.Light
+            anchors.top: tSpeed.bottom
             anchors.topMargin: 40
             anchors.left: parent.left
             anchors.leftMargin: 20

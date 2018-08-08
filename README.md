@@ -97,6 +97,9 @@ WantedBy=multi-user.target
 
 Enable osrm  
 
+## Known bugs
+Second route to home won't work because workaround for `routeModel.cancel()` crash.
+
 ## License
 this code is under MIT license
 

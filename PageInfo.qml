@@ -20,7 +20,8 @@ PageInfoForm {
         target: QmlBridge
         onPositionUpdate:
         {
-            tSpeed.text = String(speed) + " km/h"
+            tSpeed.text = String(Math.round(speed)) + " km/h"
+            tRoadName.text = roadName
         }
     }
 }

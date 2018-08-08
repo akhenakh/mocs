@@ -26,9 +26,9 @@ var (
 
 type QmlBridge struct {
 	core.QObject
-	_ func(lat, lng, heading, speed float64, matched bool, mlat, mlng, mheading float64) `signal:"positionUpdate"`
-	_ float64                                                                            `property:"defaultLat"`
-	_ float64                                                                            `property:"defaultLng"`
+	_ func(lat, lng, heading, speed float64, matched bool, mlat, mlng, mheading float64, roadName string) `signal:"positionUpdate"`
+	_ float64                                                                                             `property:"defaultLat"`
+	_ float64                                                                                             `property:"defaultLng"`
 }
 
 func main() {
@@ -88,7 +88,7 @@ func main() {
 				}
 
 				qmlBridge.PositionUpdate(p.Latitude, p.Longitude, p.Heading, p.Speed,
-					p.Matched, p.MatchedLatitude, p.MatchedLongitude, p.MatchedHeading)
+					p.Matched, p.MatchedLatitude, p.MatchedLongitude, p.MatchedHeading, p.RoadName)
 				if *debug {
 					log.Println("received via GPSSVC", p)
 				}
